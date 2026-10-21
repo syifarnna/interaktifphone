@@ -3,7 +3,7 @@ html,body{height:100%}
 body{
   margin:0;min-height:100dvh;display:grid;place-items:center;padding:12px;
   background:radial-gradient(circle at top,#2f3346 0,#1a1c25 38%,#0d0f15 100%);
-  color:#f8f8fb;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",system-ui,sans-serif;
+  color:#f8f8fb;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Pretendard Variable",Pretendard,"Helvetica Neue",system-ui,sans-serif;
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow:hidden
 }
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}

@@ -248,8 +248,8 @@ function checkPass(){
     passEntry = '';
     renderDots();
     $('passError').textContent = passAttempts >= 3
-      ? 'Petunjuk: tanggal yang paling kamu tunggu.'
-      : 'Kode sandi salah. Coba lagi.';
+? 'Petunjuk: 29/07.'
+: 'Kode sandi salah. Coba lagi.';
     const pass = $('pass');
     pass.classList.remove('shake');
     void pass.offsetWidth;
@@ -260,7 +260,7 @@ function checkPass(){
 }
 
 function giveHint(){
-  $('passError').textContent = 'Petunjuk: 14/05. Ulang tahunmu.';
+  $('passError').textContent = 'Petunjuk: 29/07.';
 }
 
 function onUnlocked(){

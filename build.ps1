@@ -41,12 +41,8 @@ foreach ($token in $imgTokens.Keys) {
   $filename = $imgTokens[$token]
   $filepath = Join-Path $assetsDir $filename
   if (Test-Path $filepath) {
-    $bytes = [System.IO.File]::ReadAllBytes($filepath)
-    $base64 = [Convert]::ToBase64String($bytes)
-    $ext = [System.IO.Path]::GetExtension($filename).ToLower()
-    $mime = if ($ext -eq '.jpg') { 'image/jpeg' } elseif ($ext -eq '.png') { 'image/png' } else { 'image/jpeg' }
-    $dataUri = "data:$mime;base64,$base64"
-    $html = $html.Replace($token, $dataUri)
+    $urlPath = 'assets/' + ($filename -replace ' ', '%20')
+    $html = $html.Replace($token, $urlPath)
   } else {
     Write-Warning "Asset not found: $filepath"
     $html = $html.Replace($token, '')

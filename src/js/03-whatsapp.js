@@ -96,7 +96,7 @@ function renderChat(id){
   closeCameraStreamOnly();
   mountApp('light', 'wa-page', `
     <div class="wa">
-      <div class="wa-chat${KB_OPEN ? ' kb-open' : ''}" id="waChat">
+      <div class="wa-chat" id="waChat">
         <div class="wa-chat-bg"></div>
         <div class="wa-chathead">
           <button class="wa-back" onclick="openWaList()" aria-label="Kembali ke daftar chat">
@@ -118,34 +118,7 @@ function renderChat(id){
         </div>
         <div class="wa-composer-wrap">
           <div class="wa-choices" id="waChoices"></div>
-          <div class="wa-composer">
-            <button class="wa-plus" onclick="waAttachNotice()" aria-label="Lampiran">+</button>
-            <label class="wa-field">
-              <input id="chatInput" inputmode="none" autocomplete="off" placeholder="Pesan" value="${esc(CHAT_DRAFT)}"
-                onfocus="openKeyboard()" oninput="CHAT_DRAFT=this.value"
-                onkeydown="if(event.key==='Enter'){event.preventDefault();sendChat();}">
-            </label>
-            <button class="wa-send" onclick="sendChat()" aria-label="Kirim">
-              <svg viewBox="0 0 24 24"><path d="M3.4 20.6 21 12 3.4 3.4l2.3 7.2 9 1.4-9 1.4-2.3 7.2Z"/></svg>
-            </button>
-          </div>
-        </div>
-        <div class="wa-kb" id="waKeyboard">
-          <div class="wa-kb-row">${'qwertyuiop'.split('').map(k => kbKey(k)).join('')}</div>
-          <div class="wa-kb-row">${'asdfghjkl'.split('').map(k => kbKey(k)).join('')}</div>
-          <div class="wa-kb-row">
-            <button class="wa-kb-key special" onclick="kbShift()" aria-label="Huruf besar">&#8679;</button>
-            ${'zxcvbnm'.split('').map(k => kbKey(k)).join('')}
-            <button class="wa-kb-key special" onclick="kbBackspace()" aria-label="Hapus"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 5H9l-6 7 6 7h12V5Z"/><path d="m13 9 5 6M18 9l-5 6"/></svg></button>
-          </div>
-          <div class="wa-kb-row">
-            <button class="wa-kb-key special" onclick="toast('Keyboard simulasi')">123</button>
-            <button class="wa-kb-key special" onclick="kbType(',')">,</button>
-            <button class="wa-kb-key space" onclick="kbType(' ')">spasi</button>
-            <button class="wa-kb-key special" onclick="kbType('.')">.</button>
-            <button class="wa-kb-key special" onclick="sendChat()">kirim</button>
-          </div>
-          <div class="wa-kb-footer"><span></span><button onclick="closeKeyboard()">tutup</button></div>
+          <div class="wa-chat-note">Balas lewat pilihan yang tersedia saat cerita memintanya.</div>
         </div>
       </div>
     </div>`);
@@ -297,36 +270,8 @@ function chooseReply(chatId, idx){
 }
 
 function sendChat(){
-  if (!ACTIVE_CHAT) return;
-  const field = $('chatInput');
-  const text = field ? field.value.trim() : '';
-  const chatId = ACTIVE_CHAT;
-  const p = PENDING_CHOICES[chatId];
-  if (p) {
-    const opt = p.options.find(o => o.free) || p.options[0];
-    const idx = p.options.indexOf(opt);
-    delete PENDING_CHOICES[chatId];
-    renderChoices(chatId);
-    if (text) addMy(chatId, text);
-    if (field) field.value = '';
-    CHAT_DRAFT = '';
-    p.resolve(opt);
-    scrollConvo();
-    return;
-  }
-  if (!text) return;
-  addMy(chatId, text);
-  if (field) field.value = '';
-  CHAT_DRAFT = '';
-  scrollConvo();
-  if (chatId === 'jo' && S.chapter === 0 && !S.flags.call1Done) return;
-  if (text.length > 1) {
-    const replies = ['nanti aku bales ya, aku lagi di jalan', 'iya, aku baca nanti ya', 'hmm, aku mikir dulu ya'];
-    const reply = replies[Math.floor(Math.random() * replies.length)];
-    setTimeout(() => {
-      if (isChatOpen(chatId)) incoming(chatId, reply, { typing: 900 });
-    }, 1600);
-  }
+  // Free typing disabled: replies only via template choices.
+  return;
 }
 
 function waAttachNotice(){ toast('Lampiran tidak tersedia dalam simulasi.'); }
