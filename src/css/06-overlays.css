@@ -1,4 +1,4 @@
-.banner{position:absolute;top:9px;left:9px;right:9px;z-index:115;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:20px;background:rgba(26,28,36,.88);backdrop-filter:blur(26px) saturate(150%);border:1px solid rgba(255,255,255,.14);box-shadow:0 14px 34px rgba(0,0,0,.4);transform:translateY(-150%);transition:transform .42s cubic-bezier(.2,.9,.2,1);cursor:pointer;text-align:left;pointer-events:none}
+.banner{position:absolute;top:58px;left:9px;right:9px;z-index:115;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:20px;background:rgba(26,28,36,.88);backdrop-filter:blur(26px) saturate(150%);border:1px solid rgba(255,255,255,.14);box-shadow:0 14px 34px rgba(0,0,0,.4);transform:translateY(-150%);transition:transform .42s cubic-bezier(.2,.9,.2,1);cursor:pointer;text-align:left;pointer-events:none}
 .banner.show{transform:translateY(0);pointer-events:auto}
 .banner.show{transform:translateY(0)}
 .banner .bn-ic{width:34px;height:34px;border-radius:9px;background:#25d366;display:grid;place-items:center;flex:0 0 auto;overflow:hidden}
