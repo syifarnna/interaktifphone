@@ -190,10 +190,7 @@ function openPhotos(){
       <p style="font-size:13px;color:rgba(255,255,255,.55);margin:0 0 10px">Semua foto</p>
       <div class="photo-grid" id="photoGrid">${photoGridHTML()}</div>
       <div class="photo-bottom">
-        <button class="active"><span class="pict"> Library</span>Library</button>
-        <button><span class="pict"> For You</span>For You</button>
-        <button><span class="pict"> Albums</span>Albums</button>
-        <button><span class="pict"> Search</span>Search</button>
+        <button class="active">Library</button>
       </div>
     </div>`);
 }
