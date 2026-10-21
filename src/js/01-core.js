@@ -126,9 +126,12 @@ function chapterInfo(){ return CHAPTERS[clamp(S.chapter, 0, CHAPTERS.length - 1)
 
 function renderClock(){
   const t = fmtMin(S.minute);
-  $('sbTime').textContent = t;
-  $('lockClock').textContent = t;
-  $('lockDate').textContent = chapterInfo().date;
+  const sb = $('sbTime');
+  if (sb) sb.textContent = t;
+  const lc = $('lockClock');
+  if (lc) lc.textContent = t;
+  const ld = $('lockDate');
+  if (ld) ld.textContent = chapterInfo().date;
 }
 
 function setChapter(n){
@@ -157,7 +160,7 @@ function showScreen(name){
     renderLockNotifs();
     renderClock();
   }
-  if (name === 'home') { ACTIVE_CHAT = null; CURRENT_APP = null; setStatusTheme(false); }
+  if (name === 'home') { ACTIVE_CHAT = null; CURRENT_APP = null; setStatusTheme(false); renderHome(); }
 }
 
 function showPass(after){

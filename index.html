@@ -661,6 +661,9 @@ img{max-width:100%}
       <div class="wallpaper lock-wall" id="wallLock"></div>
       <div class="wallpaper home-wall hidden" id="wallHome"></div>
       <div class="wall-shade" id="wallShade"></div>
+      <div class="statusbar" id="statusbar">
+        <span class="sb-time" id="sbTime">22.15</span>
+      </div>
 
       <section id="lock" class="screen lock">
         <div class="lock-top">
@@ -866,9 +869,12 @@ function chapterInfo(){ return CHAPTERS[clamp(S.chapter, 0, CHAPTERS.length - 1)
 
 function renderClock(){
   const t = fmtMin(S.minute);
-  $('sbTime').textContent = t;
-  $('lockClock').textContent = t;
-  $('lockDate').textContent = chapterInfo().date;
+  const sb = $('sbTime');
+  if (sb) sb.textContent = t;
+  const lc = $('lockClock');
+  if (lc) lc.textContent = t;
+  const ld = $('lockDate');
+  if (ld) ld.textContent = chapterInfo().date;
 }
 
 function setChapter(n){
@@ -897,7 +903,7 @@ function showScreen(name){
     renderLockNotifs();
     renderClock();
   }
-  if (name === 'home') { ACTIVE_CHAT = null; CURRENT_APP = null; setStatusTheme(false); }
+  if (name === 'home') { ACTIVE_CHAT = null; CURRENT_APP = null; setStatusTheme(false); renderHome(); }
 }
 
 function showPass(after){
