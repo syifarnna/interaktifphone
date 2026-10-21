@@ -188,7 +188,7 @@ function openPhotos(){
       ${appBackBtn('Kembali')}
       <h2 style="font-size:31px;letter-spacing:-1px;margin:6px 0 4px">Foto</h2>
       <p style="font-size:13px;color:rgba(255,255,255,.55);margin:0 0 10px">Semua foto</p>
-      <div class="photo-grid" id="photoGrid">${photoGridHTML()}</div>
+      <div class="gallery-grid" id="photoGrid">${photoGridHTML()}</div>
       <div class="photo-bottom">
         <button class="active">Library</button>
       </div>
@@ -211,7 +211,7 @@ function photoGridHTML(){
   if (PHOTO_FILTER === 'kita') src = kita;
   else if (PHOTO_FILTER === 'jogja') src = jogja;
   else if (PHOTO_FILTER === 'kamera') src = kamera;
-  return src.map((s, i) => `<button class="ph-tile" onclick="openViewer('${s}', ${i})"><img src="${s}" alt="Foto" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#2a2a30'"></button>`).join('');
+  return src.map((s, i) => `<button class="gallery-item" onclick="openViewer('${s}', ${i})"><img src="${s}" alt="Foto" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#2a2a30'"></button>`).join('');
 }
 
 function openViewer(src, idx){
