@@ -25,7 +25,7 @@ img{max-width:100%}
 .lock-wall{background-image:url("__IMG_WALL_LOCK__")}
 .home-wall{background-image:url("__IMG_WALL_HOME__")}
 .wall-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.22) 0,rgba(0,0,0,.04) 26%,rgba(0,0,0,.06) 60%,rgba(0,0,0,.32) 100%);transition:opacity .6s}
-.gloss{position:absolute;inset:0;z-index:200;pointer-events:none;background:linear-gradient(130deg,rgba(255,255,255,.13) 0%,rgba(255,255,255,0) 18%,rgba(255,255,255,0) 62%,rgba(255,255,255,.08) 100%);mix-blend-mode:screen;opacity:.6}
+.gloss{position:absolute;inset:0;z-index:200;pointer-events:none;background:linear-gradient(130deg,rgba(255,255,255,.08) 0%,rgba(255,255,255,0) 18%,rgba(255,255,255,0) 62%,rgba(255,255,255,.05) 100%);mix-blend-mode:screen;opacity:.35}
 .statusbar{position:absolute;top:0;left:0;right:0;height:46px;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:8px 26px 0;font-size:14px;font-weight:600;letter-spacing:.2px;color:#fff;pointer-events:none;transition:color .3s}
 .statusbar.light{color:#0b0b0d}
 .statusbar .sb-time{min-width:44px}
