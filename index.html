@@ -2547,7 +2547,7 @@ function photoGridHTML(){
   if (PHOTO_FILTER === 'kita') src = kita;
   else if (PHOTO_FILTER === 'jogja') src = jogja;
   else if (PHOTO_FILTER === 'kamera') src = kamera;
-  return src.map((s, i) => `<button class="photo-thumb" onclick="openViewer('${s}', ${i})"><img src="${s}" alt=""></button>`).join('');
+  return src.map((s, i) => `<button class="ph-tile" onclick="openViewer('${s}', ${i})"><img src="${s}" alt="Foto" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#2a2a30'"></button>`).join('');
 }
 
 function openViewer(src, idx){
