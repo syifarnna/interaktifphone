@@ -2395,25 +2395,66 @@ function openPhoneApp(){
   mountApp('light', 'phone-app', `
     <div class="app-inner">
       ${appBackBtn('Kembali')}
-      <div class="phone-grid">
-        <button class="phone-btn" onclick="dialPad('1')">1</button>
-        <button class="phone-btn" onclick="dialPad('2')">2</button>
-        <button class="phone-btn" onclick="dialPad('3')">3</button>
-        <button class="phone-btn" onclick="dialPad('4')">4</button>
-        <button class="phone-btn" onclick="dialPad('5')">5</button>
-        <button class="phone-btn" onclick="dialPad('6')">6</button>
-        <button class="phone-btn" onclick="dialPad('7')">7</button>
-        <button class="phone-btn" onclick="dialPad('8')">8</button>
-        <button class="phone-btn" onclick="dialPad('9')">9</button>
-        <button class="phone-btn" onclick="dialPad('*')">*</button>
-        <button class="phone-btn" onclick="dialPad('0')">0</button>
-        <button class="phone-btn" onclick="dialPad('#')">#</button>
+      <h2>Telepon</h2>
+      <div class="phone-tabs">
+        <button class="phone-tab active" onclick="phoneTab('recents', this)">Recents</button>
+        <button class="phone-tab" onclick="phoneTab('contacts', this)">Contacts</button>
+        <button class="phone-tab" onclick="phoneTab('keypad', this)">Keypad</button>
+        <button class="phone-tab" onclick="phoneTab('voicemail', this)">Voicemail</button>
       </div>
-      <div class="dial-display" id="dialDisplay"></div>
-      <button class="call-btn" onclick="startDialCall()">
-        <svg viewBox="0 0 24 24" width="28" height="28" fill="#fff"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.24 1.02l-2.21 2.2Z"/></svg>
-      </button>
+      <div class="phone-content" id="phoneContent"></div>
     </div>`);
+  phoneTab('recents');
+}
+let PHONE_TAB = 'recents';
+function phoneTab(tab, btn){
+  PHONE_TAB = tab;
+  if (btn) {
+    $$('.phone-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const content = $('phoneContent');
+  if (!content) return;
+  if (tab === 'recents') content.innerHTML = phoneRecentsHTML();
+  else if (tab === 'contacts') content.innerHTML = phoneContactsHTML();
+  else if (tab === 'keypad') content.innerHTML = phoneKeypadHTML();
+  else content.innerHTML = phoneVoicemailHTML();
+}
+function phoneRecentsHTML(){
+  const rows = [
+    { name: 'Jo', sub: 'mobile', time: '10:24', miss: false },
+    { name: 'Dinda', sub: 'mobile', time: 'Kemarin', miss: false },
+    { name: 'Bayu', sub: 'mobile', time: 'Senin', miss: true },
+    { name: 'Mama', sub: 'home', time: 'Minggu', miss: false }
+  ];
+  return `<div class="ph-detail" style="text-align:left;padding:8px 4px 0">
+    ${rows.map(r => `<div class="ph-log">
+      <span class="arr${r.miss ? ' miss' : ''}">${r.miss ? 'â†™' : 'â†—'}</span>
+      <div><b class="${r.miss ? 'miss' : ''}">${esc(r.name)}</b><small>${esc(r.sub)}</small></div>
+      <span class="time">${esc(r.time)}</span>
+    </div>`).join('')}
+  </div>`;
+}
+function phoneContactsHTML(){
+  return CONTACT_ORDER.map(id => {
+    const c = CONTACTS[id];
+    return `<div class="ph-contact">
+      <span class="ph-avatar">${contactAvatarInner(id)}</span>
+      <div><b>${esc(c.name)}</b><small>${esc(c.sub || '')}</small></div>
+    </div>`;
+  }).join('') || '<div class="ph-empty">Belum ada kontak.</div>';
+}
+function phoneKeypadHTML(){
+  return `<div class="ph-dial">
+    <div class="ph-number" id="dialDisplay"></div>
+    <div class="dial-grid">
+      ${[['1',''],['2','ABC'],['3','DEF'],['4','GHI'],['5','JKL'],['6','MNO'],['7','PQRS'],['8','TUV'],['9','WXYZ'],['*',''],['0','+'],['#','']].map(k => `<button class="dial-key" onclick="dialPad('${k[0]}')"><b>${k[0]}</b><small>${k[1]}</small></button>`).join('')}
+    </div>
+    <button class="dial-call" onclick="startDialCall()" aria-label="Panggil"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.24 1.02l-2.21 2.2Z"/></svg></button>
+  </div>`;
+}
+function phoneVoicemailHTML(){
+  return `<div class="ph-empty" style="padding:40px 20px;text-align:center;color:#8a8a91">Belum ada pesan suara.</div>`;
 }
 
 let DIAL_NUM = '';
@@ -2494,14 +2535,15 @@ function openPhotos(){
   mountApp('dark', 'photos-app', `
     <div class="app-inner photos-dark">
       ${appBackBtn('Kembali')}
-      <h2>Foto</h2>
-      <div class="photo-tabs">
-        <button class="photo-tab${PHOTO_FILTER === 'semua' ? ' active' : ''}" onclick="setPhotoFilter('semua')">Semua</button>
-        <button class="photo-tab${PHOTO_FILTER === 'kita' ? ' active' : ''}" onclick="setPhotoFilter('kita')">Kita</button>
-        <button class="photo-tab${PHOTO_FILTER === 'jogja' ? ' active' : ''}" onclick="setPhotoFilter('jogja')">Jogja</button>
-        <button class="photo-tab${PHOTO_FILTER === 'kamera' ? ' active' : ''}" onclick="setPhotoFilter('kamera')">Kamera</button>
-      </div>
+      <h2 style="font-size:31px;letter-spacing:-1px;margin:6px 0 4px">Foto</h2>
+      <p style="font-size:13px;color:rgba(255,255,255,.55);margin:0 0 10px">Semua foto</p>
       <div class="photo-grid" id="photoGrid">${photoGridHTML()}</div>
+      <div class="photo-bottom">
+        <button class="active"><span class="pict"> Library</span>Library</button>
+        <button><span class="pict"> For You</span>For You</button>
+        <button><span class="pict"> Albums</span>Albums</button>
+        <button><span class="pict"> Search</span>Search</button>
+      </div>
     </div>`);
 }
 
