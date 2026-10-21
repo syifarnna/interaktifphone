@@ -109,7 +109,9 @@ img{max-width:100%}
 .dot.filled{background:#fff;transform:scale(1.06)}
 .pass-error{height:15px;font-size:11px;color:#ffb4b4;margin-top:4px;text-align:center;line-height:1.3}
 .pass.shake{animation:shake .4s}
-.keypad{display:grid;grid-template-columns:repeat(3,74px);gap:14px 22px;margin-top:auto}
+.keypad{display:grid;grid-template-columns:repeat(3,74px);gap:14px 22px;margin-top:auto;justify-content:center}
+@media (max-width:360px){.keypad{grid-template-columns:repeat(3,64px);gap:10px 16px}.key{width:64px;height:64px}.key-number{font-size:26px}}
+@media (max-height:700px){.lock-notifs{max-height:36%}.pass{padding-top:80px}}
 .key{width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.13);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:background .12s,transform .1s}
 .key:active{background:rgba(255,255,255,.32);transform:scale(.965)}
 .key-number{font-size:31px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums}
@@ -835,6 +837,7 @@ function showPass(after){
   passAttempts = 0;
   $('passError').textContent = '';
   renderDots();
+  renderKeypad();
   showScreen('pass');
   setStatusTheme(false);
 }
@@ -857,9 +860,31 @@ function pressDigit(n){
   renderDots();
   if (passEntry.length === 4) setTimeout(checkPass, 130);
 }
+function backDigit(){
+  if (!passEntry.length) return;
+  passEntry = passEntry.slice(0, -1);
+  renderDots();
+}
+function renderKeypad(){
+  const kp = $('keypad');
+  if (!kp) return;
+  const rows = [
+    [{n:'1',l:''},{n:'2',l:'ABC'},{n:'3',l:'DEF'}],
+    [{n:'4',l:'GHI'},{n:'5',l:'JKL'},{n:'6',l:'MNO'}],
+    [{n:'7',l:'PQRS'},{n:'8',l:'TUV'},{n:'9',l:'WXYZ'}]
+  ];
+  let html = '';
+  rows.forEach(r => r.forEach(k => {
+    html += `<button class="key" onclick="pressDigit('${k.n}')" aria-label="Angka ${k.n}"><span class="key-number">${k.n}</span><span class="key-letters">${k.l}</span></button>`;
+  }));
+  html += `<div class="key key-empty"></div>`;
+  html += `<button class="key" onclick="pressDigit('0')" aria-label="Angka 0"><span class="key-number">0</span><span class="key-letters"></span></button>`;
+  html += `<button class="key key-back" onclick="backDigit()" aria-label="Hapus"><svg viewBox="0 0 24 24"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/><path d="M18 9l-6 6M12 9l6 6"/></svg></button>`;
+  kp.innerHTML = html;
+}
 
 function checkPass(){
-  if (passEntry === '1405') {
+  if (passEntry === '2907') {
     passEntry = '';
     $('passError').textContent = '';
     showScreen('home');
@@ -2705,10 +2730,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
   });
-  $$('.key-btn').forEach(btn => {
-    btn.addEventListener('click', () => pressDigit(btn.dataset.key));
-  });
-  $('hintBtn').addEventListener('click', giveHint);
+  // keypad buttons use inline handlers
   $('torchBtn').addEventListener('click', toggleTorch);
   $('flashlight').addEventListener('click', toggleTorch);
   loadWeather();

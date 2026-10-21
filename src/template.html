@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0b0d12">
+<meta name="description" content="iPhone interaktif: cerita LDR Jo dan Shein, dari Jakarta ke Jogja.">
+<title>Dari Jakarta ke Jogja — iPhone Interaktif</title>
+<style>
+__CSS__
+</style>
+</head>
+<body>
+<div class="app">
+  <main class="phone" id="phone" aria-label="iPhone interaktif, cerita Dari Jakarta ke Jogja">
+    <div class="screen" id="surface">
+      <div class="wallpaper lock-wall" id="wallLock"></div>
+      <div class="wallpaper home-wall hidden" id="wallHome"></div>
+      <div class="wall-shade" id="wallShade"></div>
+
+      <section id="lock" class="screen lock">
+        <div class="lock-top">
+          <div class="lock-date" id="lockDate">Kamis, 14 Mei</div>
+          <div class="lock-clock" id="lockClock">22.15</div>
+        </div>
+        <div class="lock-notifs" id="lockNotifs"></div>
+        <div class="lock-bottom">
+          <button class="lock-round" id="torchBtn" onclick="toggleTorch()" aria-label="Senter">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v3l-2 3v10a1.5 1.5 0 0 1-1.5 1.5h-1A1.5 1.5 0 0 1 9 19V9L7 6V3Z"/><path d="M7 6h10M10 12h4"/></svg>
+          </button>
+          <button class="lock-hint" onclick="showPass()" aria-label="Geser ke atas untuk membuka">
+            <span class="hint-arrow">&#8963;</span>
+            <span>geser ke atas untuk membuka</span>
+          </button>
+          <button class="lock-round" onclick="openCameraQuick()" aria-label="Kamera">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h4l2-3h6l2 3h4v13H3V7Z"/><circle cx="12" cy="13" r="4"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <section id="pass" class="screen pass hidden">
+        <div class="pass-title">Masukkan Kode Sandi</div>
+        <div class="dots" id="dots"></div>
+        <div class="pass-error" id="passError"></div>
+        <div class="keypad" id="keypad"></div>
+        <div class="pass-actions">
+          <button type="button" onclick="giveHint()">Lupa kode?</button>
+          <button type="button" onclick="hidePass()">Batal</button>
+        </div>
+      </section>
+
+      <section id="home" class="screen home hidden">
+        <div class="widgets">
+          <div class="widget widget-weather" id="weatherWidget" role="status" aria-label="Cuaca Jogja">
+            <div class="w-head"><span>JOGJA</span><span id="wUpdated">SEKARANG</span></div>
+            <div class="w-main">
+              <span class="w-temp" id="wTemp">27&deg;</span>
+              <span class="w-icon" id="wIcon"></span>
+            </div>
+            <div class="w-cond" id="wCond">Hujan ringan</div>
+            <div class="w-range" id="wRange">24&deg; / 30&deg; &middot; prakiraan</div>
+          </div>
+          <button class="widget widget-notes" onclick="openApp('notes')" aria-label="Buka Catatan">
+            <span class="nw-head">CATATAN</span>
+            <span class="nw-title">To do hari ini</span>
+            <span class="nw-line">Laundry</span>
+            <span class="nw-line">Beli makanan kucing belakang</span>
+            <span class="nw-line">Bayar kos</span>
+            <span class="nw-foot">Lihat semua &rsaquo;</span>
+          </button>
+        </div>
+        <div class="appgrid" id="appgrid"></div>
+        <div class="dock" id="dock"></div>
+      </section>
+
+      <section id="appPage" class="screen app-page hidden"></section>
+
+      <button class="home-indicator" id="homeIndicator" aria-label="Kembali ke layar utama"></button>
+
+      <div class="banner" id="banner" role="button" tabindex="0" aria-label="Notifikasi"></div>
+
+      <section class="call hidden" id="call" aria-label="Panggilan"></section>
+      <section class="scene hidden" id="scene" aria-label="Adegan"></section>
+      <section class="ending hidden" id="ending" aria-label="Akhir cerita"></section>
+      <div class="timeskip" id="timeskip" aria-hidden="true"><div class="ts-inner"><span class="ts-kicker" id="tsKicker"></span><h2 id="tsTitle"></h2><p id="tsSub"></p></div></div>
+      <div class="storycard hidden" id="storycard" role="dialog" aria-label="Kartu cerita"></div>
+      <div class="viewer hidden" id="viewer" aria-label="Lihat foto"></div>
+      <div class="toast" id="toast" role="status"></div>
+      <div class="flashlight hidden" id="flashlight"></div>
+      <div class="gloss" aria-hidden="true"></div>
+    </div>
+    <div class="island" aria-hidden="true"></div>
+  </main>
+  <p class="desk-hint">Coba buka dari HP. Kode sandi: tanggal yang paling kamu tunggu.</p>
+</div>
+<script>
+__JS__
+</script>
+</body>
+</html>
