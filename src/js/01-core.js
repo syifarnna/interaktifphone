@@ -356,7 +356,7 @@ function renderLockNotifs(){
       <span class="nt-ic wa">${contactAvatarInner(n.chat)}</span>
       <span class="nt-main">
         <span class="nt-top"><span>WhatsApp</span><small>${esc(n.time)}</small></span>
-        <span class="nt-body"><b>${esc(n.who)}</b> &middot; ${esc(n.text)}</span>
+        <span class="nt-body"><b>${esc(n.who)}</b><span>${esc(n.text)}</span></span>
       </span>
     </button>`;
   }).join('');
