@@ -77,10 +77,68 @@
 .vm-ctrl svg{width:24px;height:24px;fill:currentColor}
 .vm-note{text-align:center;font-size:10px;color:#a0a0a7;padding-top:8px}
 
-.photos-page{background:#0b0b0f;color:#fff}
-.photos-page .app-head{background:rgba(16,16,21,.92);border-bottom-color:rgba(255,255,255,.08)}
-.photos-page .app-head h1{color:#fff}
-.photos-page .app-head .hbtn{color:#0a84ff}
+.photos-app{
+  width:100% !important;
+  height:100% !important;
+  background-color:#ffffff !important;
+  color:#000000 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  overflow-y:auto !important;
+  box-sizing:border-box !important;
+}
+.photos-header{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:52px 16px 8px;
+  background:#fff;
+  border-bottom:.5px solid rgba(0,0,0,.08);
+}
+.photos-title-wrap{flex:1}
+.photos-title-wrap h1{font-size:31px;letter-spacing:-1px;margin:0;font-weight:800;color:#111}
+.photos-title-wrap p{font-size:13px;color:#858585;margin:4px 0 0}
+.photos-scroll{flex:1;overflow-y:auto;scrollbar-width:none;padding:0 0 12px}
+.photos-scroll::-webkit-scrollbar{display:none}
+.date-header{
+  font-size:18px !important;
+  font-weight:bold !important;
+  padding:12px 10px 6px 10px !important;
+  color:#000000 !important;
+}
+.gallery-grid{
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr) !important;
+  gap:2px !important;
+  padding:2px !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+}
+.gallery-grid button{
+  border:0;padding:0;margin:0;aspect-ratio:1/1;overflow:hidden;background:#e5e5ea;cursor:pointer;
+}
+.gallery-grid img{
+  width:100% !important;
+  height:100% !important;
+  aspect-ratio:1/1 !important;
+  object-fit:cover !important;
+  object-position:center !important;
+  display:block !important;
+  border-radius:0 !important;
+}
+.photos-nav{
+  flex:0 0 auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-top:1px solid rgba(0,0,0,.08);
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  padding:8px 5px 17px;
+}
+.photos-nav button{border:0;background:none;color:#007aff;font-size:12px;font-weight:600;padding:6px 14px}
 .ph-seg{display:flex;gap:7px;padding:10px 12px;overflow-x:auto;scrollbar-width:none}
 .ph-seg::-webkit-scrollbar{display:none}
 .ph-seg button{flex:0 0 auto;font-size:11.5px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.09);color:#dcdce2}

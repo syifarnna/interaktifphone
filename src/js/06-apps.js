@@ -183,13 +183,30 @@ function recordMemo(){
 }
 
 function openPhotos(){
-  mountApp('dark', 'photos-app', `
-    <div class="app-inner photos-dark">
-      ${appBackBtn('Kembali')}
-      <h2 style="font-size:31px;letter-spacing:-1px;margin:6px 0 4px">Foto</h2>
-      <p style="font-size:13px;color:rgba(255,255,255,.55);margin:0 0 10px">Semua foto</p>
-      <div class="gallery-grid" id="photoGrid">${photoGridHTML()}</div>
-      <div class="photo-bottom">
+  mountApp('light', 'photos-app', `
+    <div class="photos-app">
+      <div class="photos-header">
+        ${appBackBtn('Kembali')}
+        <div class="photos-title-wrap">
+          <h1>Library</h1>
+          <p>Semua Foto</p>
+        </div>
+      </div>
+      <div class="photos-scroll" id="photoScroll">
+        <div class="date-header">Oktober 2026</div>
+        <div class="gallery-grid">
+          ${[IMG.g1, IMG.g2, IMG.g3].map((s,i) => `<button class="gallery-item" onclick="openViewer('${s}', ${i})"><img src="${s}" alt="Foto" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e5e5ea'"></button>`).join('')}
+        </div>
+        <div class="date-header">September 2026</div>
+        <div class="gallery-grid">
+          ${[IMG.g4, IMG.g5, IMG.g6].map((s,i) => `<button class="gallery-item" onclick="openViewer('${s}', ${i+3})"><img src="${s}" alt="Foto" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e5e5ea'"></button>`).join('')}
+        </div>
+        <div class="date-header">Agustus 2026</div>
+        <div class="gallery-grid">
+          ${[IMG.g7, IMG.g8, IMG.g9].map((s,i) => `<button class="gallery-item" onclick="openViewer('${s}', ${i+6})"><img src="${s}" alt="Foto" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e5e5ea'"></button>`).join('')}
+        </div>
+      </div>
+      <div class="photos-nav">
         <button class="active">Library</button>
       </div>
     </div>`);
