@@ -37,7 +37,7 @@ const CHAPTERS = [
 ];
 
 const SAVE_KEY = 'jakarta-jogja.v1';
-let S = loadState();
+let S = defaultState();
 let CURRENT_SCREEN = 'lock';
 let ACTIVE_CHAT = null;
 let CURRENT_APP = null;
@@ -106,30 +106,10 @@ function defaultState(){
   };
 }
 
-function loadState(){
-  try {
-    const raw = localStorage.getItem(SAVE_KEY);
-    if (!raw) return defaultState();
-    const parsed = JSON.parse(raw);
-    if (!parsed || parsed.v !== 1) return defaultState();
-    const base = defaultState();
-    return Object.assign(base, parsed, {
-      chats: Object.assign(base.chats, parsed.chats || {}),
-      unread: Object.assign(base.unread, parsed.unread || {}),
-      flags: parsed.flags || {},
-      notes: parsed.notes || [],
-      cameraShots: parsed.cameraShots || []
-    });
-  } catch (e) { return defaultState(); }
-}
+function loadState(){ return defaultState(); }
 
-function saveState(){
-  clearTimeout(SAVE_TIMER);
-  SAVE_TIMER = setTimeout(() => {
-    try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch (e) {}
-  }, 180);
-}
-function saveNow(){ try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch (e) {} }
+function saveState(){ /* no persistence: state resets on refresh */ }
+function saveNow(){ /* no persistence: state resets on refresh */ }
 
 function resetStory(){
   try { localStorage.removeItem(SAVE_KEY); } catch (e) {}
